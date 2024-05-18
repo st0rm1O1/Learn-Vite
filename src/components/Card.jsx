@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import React, { useState, useCallback } from "react";
 import style from "./Card.module.css";
 import closeIcon from "../assets/icons/close.svg";
 
@@ -8,25 +7,25 @@ function Card({
   title = "N/A",
   description = "N/A",
   draggable = false,
-  animation = true,
-  onRemove = function () {},
+  onRemove = () => {},
 }) {
   const [removing, setRemoving] = useState(false);
-  const handleOnRemove = () => {
-    setRemoving(true);
-  };
 
-  const handleTransitionEnd = () => {
+  const handleOnRemove = useCallback(() => {
+    setRemoving(true);
+  }, []);
+
+  const handleTransitionEnd = useCallback(() => {
     if (removing) {
       onRemove();
     }
-  };
+  }, [removing, onRemove]);
 
   return (
     <div
-      className={`${style.card} ${
-        animation && !removing ? style.card_animation : ""
-      } ${animation && removing ? style.card_removal_animation : ""}`}
+      className={`${style.card} ${!removing ? style.card_animation : ""} ${
+        removing ? style.card_removal_animation : ""
+      }`}
       onAnimationEnd={handleTransitionEnd}
     >
       <img
@@ -50,4 +49,4 @@ function Card({
   );
 }
 
-export default Card;
+export default React.memo(Card);

@@ -57,7 +57,7 @@ function CardImpl() {
       },
       {
         id: 7,
-        image: defaultPicture,
+        // image: "https://sample-videos.com/img/Sample-jpg-image-30mb.jpg",
         title: "Kunal Vartak",
         description: null,
       },
@@ -104,7 +104,7 @@ function CardImpl() {
               image={obj.image}
               title={obj.title}
               description={obj.description}
-              draggable={true}
+              draggable={false}
               onRemove={() => handleOnRemove(index)}
             />
           );
